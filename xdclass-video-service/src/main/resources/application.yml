@@ -5,6 +5,12 @@ spring:
   application:
     name: xdclass-video-service
 
+  # 增加 nacos 配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.152.129:8848
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://192.168.1.103:3306/cloud_video?useUnicode=true&characterEncoding=utf-8&useSSL=false
