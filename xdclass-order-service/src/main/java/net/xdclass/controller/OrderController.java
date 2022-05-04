@@ -35,16 +35,22 @@ public class OrderController {
         // 不适用 discoveryClient 时，调用方式
         // Video video = restTemplate.getForObject("http://localhost:9000/api/v1/video/find_by_id?videoId="+videoId, Video.class);
 
-        List<ServiceInstance> list = discoveryClient.getInstances("xdclass-video-service");
-        ServiceInstance serviceInstance = list.get(0);
-        String host = serviceInstance.getHost();
-        int port = serviceInstance.getPort();
-        Video video = restTemplate.getForObject("http://"+host+":"+port+"/api/v1/video/find_by_id?videoId="+videoId, Video.class);
+        // 使用 负载之后，获取第一个
+//        List<ServiceInstance> list = discoveryClient.getInstances("xdclass-video-service");
+//        ServiceInstance serviceInstance = list.get(0);
+//        String host = serviceInstance.getHost();
+//        int port = serviceInstance.getPort();
+//        Video video = restTemplate.getForObject("http://"+host+":"+port+"/api/v1/video/find_by_id?videoId="+videoId, Video.class);
+
+        // 使用 负载均衡策略， 这里通过服务名去调用
+        Video video =  restTemplate.getForObject("http://xdclass-video-service/api/v1/video/find_by_id?videoId="+videoId, Video.class);
 
         VideoOrder videoOrder = new VideoOrder();
         videoOrder.setVideoId(video.getId());
         videoOrder.setVideoTitle(video.getTitle());
         videoOrder.setCreateTime(new Date());
+        videoOrder.setServerInfo(video.getServerInfo());
+
         return videoOrder;
     }
 }

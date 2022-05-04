@@ -41,4 +41,3 @@ spring:
 ```
 
 启动类增加注解  `@EnableDiscoveryClient`
-
