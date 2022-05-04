@@ -10,3 +10,8 @@ public RestTemplate getRestTemplate(){
     return new RestTemplate();
 }
 ```
+
+使用 restTemplate 调用时，通过调用服务名 调用
+```java
+Video video =  restTemplate.getForObject("http://xdclass-video-service/api/v1/video/find_by_id?videoId="+videoId, Video.class);
+```
