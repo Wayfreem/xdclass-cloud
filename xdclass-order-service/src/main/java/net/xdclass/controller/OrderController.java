@@ -28,7 +28,7 @@ public class OrderController {
     private DiscoveryClient discoveryClient;
 
 
-    // http://localhost:9000/api/v1/video/save?videoId=30
+    // http://localhost:8000/api/v1/video_order/save?videoId=30
     @RequestMapping("/save")
     public Object save(int videoId){
 
