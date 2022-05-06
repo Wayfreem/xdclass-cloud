@@ -2,6 +2,7 @@ package net.xdclass.controller;
 
 import net.xdclass.domain.Video;
 import net.xdclass.domain.VideoOrder;
+import net.xdclass.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -23,14 +24,20 @@ public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
-
     @Autowired
     private DiscoveryClient discoveryClient;
+    @Autowired
+    private VideoService videoService;
 
-
+    /**
+     * 这块是使用 ribbon 的方式调用，这里不做屏蔽，方便于学习对比
+     *
+     * @param videoId videoId
+     * @return VideoOrder
+     */
     // http://localhost:8000/api/v1/video_order/save?videoId=30
     @RequestMapping("/save")
-    public Object save(int videoId){
+    public Object save(int videoId) {
 
         // 不适用 discoveryClient 时，调用方式
         // Video video = restTemplate.getForObject("http://localhost:9000/api/v1/video/find_by_id?videoId="+videoId, Video.class);
@@ -43,7 +50,28 @@ public class OrderController {
 //        Video video = restTemplate.getForObject("http://"+host+":"+port+"/api/v1/video/find_by_id?videoId="+videoId, Video.class);
 
         // 使用 负载均衡策略， 这里通过服务名去调用
-        Video video =  restTemplate.getForObject("http://xdclass-video-service/api/v1/video/find_by_id?videoId="+videoId, Video.class);
+        Video video = restTemplate.getForObject("http://xdclass-video-service/api/v1/video/find_by_id?videoId=" + videoId, Video.class);
+
+        VideoOrder videoOrder = new VideoOrder();
+        videoOrder.setVideoId(video.getId());
+        videoOrder.setVideoTitle(video.getTitle());
+        videoOrder.setCreateTime(new Date());
+        videoOrder.setServerInfo(video.getServerInfo());
+
+        return videoOrder;
+    }
+
+    /**
+     * 这里是使用 feign 接口
+     *
+     * @param videoId videoId
+     * @return VideoOrder
+     */
+    // http://localhost:8000/api/v1/video_order/findById?videoId=30
+    @RequestMapping("/findById")
+    public Object findById(int videoId) {
+
+        Video video = videoService.findById(videoId);
 
         VideoOrder videoOrder = new VideoOrder();
         videoOrder.setVideoId(video.getId());
