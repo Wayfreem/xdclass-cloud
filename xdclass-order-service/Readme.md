@@ -15,3 +15,13 @@ public RestTemplate getRestTemplate(){
 ```java
 Video video =  restTemplate.getForObject("http://xdclass-video-service/api/v1/video/find_by_id?videoId="+videoId, Video.class);
 ```
+
+
+### 修改轮询策略
+
+直接在配置文件 application.yml 中增加配置
+```yaml
+xdclass-video-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+```
