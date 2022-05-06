@@ -3,6 +3,8 @@ package net.xdclass.controller;
 import net.xdclass.domain.Video;
 import net.xdclass.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +29,16 @@ public class VideoController {
         String serverInfo = httpRequest.getServerName() + ":"+ httpRequest.getServerPort();
         video.setServerInfo(serverInfo);
         return video;
+    }
+
+    /**
+     * 这里是接收传入过来的参数，使用的注解可以使用 @RequestMapping("saveByFeign") 或者 @PostMapping("saveByFeign")
+     * @param video Video
+     * @return 返回值
+     */
+    @PostMapping("saveByFeign")
+    public int saveByFeign(@RequestBody Video video){
+        System.out.println("========>"+video.getTitle());
+        return 1;
     }
 }

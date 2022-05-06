@@ -66,7 +66,13 @@ public interface VideoService{
    @GetMapping(value = "/api/v1/video/find_by_id")
    // 调用方法名最好是和 调用方的方法名称一致，方便于排查, 
    // 这里是需要使用注解 @RequestParam("videoId") ，不然是会报错的
-   Video findById(@RequestParam("videoId") int videoId);    
+   Video findById(@RequestParam("videoId") int videoId); 
+
+    // 使用 Post 方式提交
+    @PostMapping(value = "/api/v1/video/saveByFeign")
+    // 注意：这里是需要使用 @RequestBody()，并且在调用使用 postMan 调用的时候，
+    // 需要指定 Content-Type 为 application/json
+    int saveByFeign(@RequestBody() Video video);
 }
 ```
 

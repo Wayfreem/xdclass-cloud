@@ -6,6 +6,8 @@ import net.xdclass.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -78,7 +80,11 @@ public class OrderController {
         videoOrder.setVideoTitle(video.getTitle());
         videoOrder.setCreateTime(new Date());
         videoOrder.setServerInfo(video.getServerInfo());
-
         return videoOrder;
+    }
+
+    @PostMapping("saveByFeign")
+    public int saveByFeign(@RequestBody Video video){
+        return videoService.saveByFeign(video);
     }
 }
