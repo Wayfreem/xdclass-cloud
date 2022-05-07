@@ -2,10 +2,7 @@ package net.xdclass.service;
 
 import net.xdclass.domain.Video;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author wuq
@@ -19,6 +16,7 @@ public interface VideoService {
     Video findById(@RequestParam("videoId") int videoId);
 
 
-    @PostMapping(value = "/api/v1/video/saveByFeign")
+    // 这里使用 @RequestMapping 与 @PostMapping 注解都是可以的
+    @RequestMapping(value = "/api/v1/video/saveByFeign")
     int saveByFeign(@RequestBody() Video video);
 }

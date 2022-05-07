@@ -69,6 +69,7 @@ public interface VideoService{
    Video findById(@RequestParam("videoId") int videoId); 
 
     // 使用 Post 方式提交
+    // 这里使用 @RequestMapping 与 @PostMapping 注解都是可以的
     @PostMapping(value = "/api/v1/video/saveByFeign")
     // 注意：这里是需要使用 @RequestBody()，并且在调用使用 postMan 调用的时候，
     // 需要指定 Content-Type 为 application/json
