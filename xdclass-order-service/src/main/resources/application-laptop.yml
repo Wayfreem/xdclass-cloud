@@ -5,11 +5,22 @@ spring:
   application:
     name: xdclass-order-service
 
-  # 增加 nacos 配置
   cloud:
+    inetutils:
+      ignored-interfaces: 'VMware Virtual Ethernet Adapter for VMnet1,VMware Virtual Ethernet Adapter for VMnet8'
+
+
+    # 增加 nacos 配置
     nacos:
       discovery:
         server-addr: 192.168.1.102:8848
+
+    # 增加 sentinel 配置
+    sentinel:
+      transport:
+        dashboard: 192.168.1.102:8858
+        port: 9990
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
