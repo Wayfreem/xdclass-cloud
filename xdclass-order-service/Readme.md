@@ -80,3 +80,40 @@ public interface VideoService{
 **具体使用**
 
 在 controller 层中注入 VideoService（接口），然后就可以直接调用
+
+### 集成 sentinel
+
+#### sentinel 控制台
+
+sentinel 有一个单独的控制台，可以去官网上面去下载，然后通过命令行启动 [链接地址](https://sentinelguard.io/zh-cn/docs/dashboard.html)
+
+默认的账号、密码都是 sentinel 
+```shell
+java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar
+
+nohup java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar &
+```
+
+#### sentinel 源码集成
+
+pom 文件增加依赖
+```xml
+ <dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+</dependency>
+```
+
+application 配置文件
+```yaml
+#dashboard: 8080 控制台端口
+#port: 9999 本地启的端口，随机选个不能被占用的，与dashboard进行数据交互，会在应用对应的机器上启动一个 Http Server，
+# 该 Server 会与 Sentinel 控制台做交互, 若被占用,则开始+1一次扫描
+
+spring:
+  cloud:
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080 
+        port: 9999
+```
