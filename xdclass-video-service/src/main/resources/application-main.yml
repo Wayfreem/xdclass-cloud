@@ -5,11 +5,18 @@ spring:
   application:
     name: xdclass-video-service
 
-  # 增加 nacos 配置
+
   cloud:
+    # 增加 nacos 配置
     nacos:
       discovery:
         server-addr: 192.168.152.129:8848
+
+    # 增加 sentinel 配置
+    sentinel:
+      transport:
+        dashboard: 192.168.152.129:8858
+        port: 9998
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

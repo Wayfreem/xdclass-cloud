@@ -91,9 +91,9 @@ sentinel 有一个单独的控制台，可以去官网上面去下载，然后�
 
 默认的账号、密码都是 sentinel 
 ```shell
-java -Dserver.port=8085 -Dcsp.sentinel.dashboard.server=192.168.1.102:8058 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
+java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
 
-nohup java -Dserver.port=8085 -Dcsp.sentinel.dashboard.server=192.168.1.102:8058 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar &
+nohup java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar &
 ```
 
 也可以通过 docker 安装，这样子更简单点
