@@ -18,8 +18,8 @@ spring:
     # 增加 sentinel 配置
     sentinel:
       transport:
-        dashboard: 192.168.1.102:8858
-        port: 9990
+        dashboard: 127.0.0.1:8858
+        port: 9999
 
 
   datasource:
