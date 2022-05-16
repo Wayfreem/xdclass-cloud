@@ -41,3 +41,18 @@ spring:
 ```
 
 启动类增加注解  `@EnableDiscoveryClient`
+
+### 集成 sentinel
+
+#### sentinel 控制台
+
+sentinel 有一个单独的控制台，可以去官网上面去下载，然后通过命令行启动 [链接地址](https://sentinelguard.io/zh-cn/docs/dashboard.html)
+
+**注意：如果是通过下面的方式启动，需要开放防火墙端口**
+
+默认的账号、密码都是 sentinel 
+```shell
+java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
+
+nohup java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar &
+```

@@ -121,3 +121,16 @@ spring:
         dashboard: 127.0.0.1:8080 
         port: 9999
 ```
+
+### 自定义流控报错提示
+
+```java
+@Component
+public class XdclassUrlBlockHandler implements BlockExceptionHandler {
+   
+    @Override
+    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, BlockException e) throws Exception {
+    //降级业务处理
+    }
+}
+```
