@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author wuq
@@ -84,7 +86,31 @@ public class OrderController {
     }
 
     @PostMapping("saveByFeign")
-    public int saveByFeign(@RequestBody Video video){
+    public int saveByFeign(@RequestBody Video video) {
         return videoService.saveByFeign(video);
     }
+
+
+    int temp = 0;
+
+    /**
+     * 用于测试熔断、降级
+     *
+     * @return map
+     */
+    @RequestMapping("list")
+    private Map list() {
+
+        temp++;
+
+        if (temp % 3 == 0) {
+            throw new RuntimeException("服务异常");
+        }
+
+        Map<String, String> map = new HashMap<>();
+        map.put("title", "测试返回数据");
+        map.put("name", "返回名称");
+        return map;
+    }
+
 }
