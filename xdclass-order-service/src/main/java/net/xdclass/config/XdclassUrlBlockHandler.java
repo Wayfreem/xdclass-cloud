@@ -32,8 +32,7 @@ public class XdclassUrlBlockHandler implements BlockExceptionHandler {
 
         Map<String, Object> backMap = new HashMap<>();
         if (e instanceof FlowException) {
-            backMap.put("code", -1);
-            backMap.put("msg", "限流-异常啦");
+            backMap = Map.of("code", -1, "msg", "限流-异常啦");
         } else if (e instanceof DegradeException) {
             backMap.put("code", -2);
             backMap.put("msg", "降级-异常啦");

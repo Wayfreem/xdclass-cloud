@@ -107,10 +107,7 @@ public class OrderController {
             throw new RuntimeException("服务异常");
         }
 
-        Map<String, String> map = new HashMap<>();
-        map.put("title", "测试返回数据");
-        map.put("name", "返回名称");
-        return map;
+        return Map.of("title", "测试返回数据", "name", "返回名称");
     }
 
 }
