@@ -1,0 +1,21 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes: # 数组形式
+        - id: order-service # 路由唯一标识
+          uri: http://127.0.0.1:8000 # 想要转发的地址
+          order: 1 # 优先级，数字越小优先级越高
+          predicates: # 断言，配置哪个路径才转发
+            - Path=/order-server/**
+          filters:  # 过滤器，请求在传递过程中通过过滤器修改
+            - StripPrefix=1  #去掉第一层前缀
+
+#访问路径 http://localhost:8888/order-server/api/v1/video_order/list
+#转发路径 http://localhost:8000/order-server/api/v1/video_order/list
+#需要过滤器去掉前面第一层, 最后访问的是 ttp://localhost:8000/api/v1/video_order/list
