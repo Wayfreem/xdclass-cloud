@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -99,7 +100,7 @@ public class OrderController {
      * @return map
      */
     @RequestMapping("list")
-    private Map list() {
+    private Map list(HttpServletRequest httpRequest) {
 
         temp++;
 
@@ -107,7 +108,8 @@ public class OrderController {
             throw new RuntimeException("服务异常");
         }
 
-        return Map.of("title", "测试返回数据", "name", "返回名称");
+        String serverInfo = httpRequest.getServerName() + ":"+ httpRequest.getServerPort();
+        return Map.of("title", "测试返回数据", "name", "返回名称", "serverInfo", serverInfo);
     }
 
 }
