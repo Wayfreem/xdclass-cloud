@@ -5,6 +5,15 @@ spring:
   application:
     name: xdclass-video-service
 
+  # 增加 zipkin 配置
+  zipkin:
+    base-url: http://127.0.0.1:9411 # zipkin地址
+    discovery-client-enabled: false # zipkin地址
+
+  sleuth:
+    sampler:
+      probability: 1.0 # 采样百分比
+
   # 增加 nacos 配置
   cloud:
     nacos:

@@ -134,3 +134,43 @@ public class XdclassUrlBlockHandler implements BlockExceptionHandler {
     }
 }
 ```
+
+## 集成 sleuth 链路追踪
+
+pom.xml 中增加依赖包
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-sleuth</artifactId>
+</dependency>
+```
+
+## 集成 zipkin
+
+pom.xml 中增加依赖包
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-zipkin</artifactId>
+</dependency>
+```
+
+配置文件中增加配置
+
+```yaml
+spring:
+  application:
+    name: api-gateway
+  zipkin:
+    base-url: http://127.0.0.1:9411/ #zipkin地址
+    discovery-client-enabled: false  #不用开启服务发现
+​
+  sleuth:
+    sampler:
+      probability: 1.0 #采样百分比
+```
+s
+默认为0.1，即10%，这里配置1，是记录全部的sleuth信息，是为了收集到更多的数据（仅供测试用）。
+在分布式系统中，过于频繁的采样会影响系统性能，所以这里配置需要采用一个合适的值。

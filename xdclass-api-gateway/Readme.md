@@ -76,5 +76,3 @@ spring:
         locator:
           enabled: true
 ```
-
-修改完成之后，访问的连接为：
