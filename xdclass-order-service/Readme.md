@@ -94,6 +94,9 @@ sentinel 有一个单独的控制台，可以去官网上面去下载，然后�
 java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
 
 nohup java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=192.168.152.129:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar &
+
+## 如果在虚拟机上面无法启动，就使用本地启动
+java -Dserver.port=8858 -Dcsp.sentinel.dashboard.server=127.0.0.1:8858 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.8.0.jar
 ```
 
 也可以通过 docker 安装，这样子更简单点
@@ -125,6 +128,7 @@ spring:
 ### 自定义流控报错提示
 
 ```java
+// 这里是需要增加 @Component 注解方便于
 @Component
 public class XdclassUrlBlockHandler implements BlockExceptionHandler {
    
@@ -166,11 +170,10 @@ spring:
   zipkin:
     base-url: http://127.0.0.1:9411/ #zipkin地址
     discovery-client-enabled: false  #不用开启服务发现
-​
+
   sleuth:
     sampler:
       probability: 1.0 #采样百分比
 ```
-s
-默认为0.1，即10%，这里配置1，是记录全部的sleuth信息，是为了收集到更多的数据（仅供测试用）。
+采样比默认为0.1，即10%，这里配置1，是记录全部的 sleuth 信息，是为了收集到更多的数据（仅供测试用）。
 在分布式系统中，过于频繁的采样会影响系统性能，所以这里配置需要采用一个合适的值。
