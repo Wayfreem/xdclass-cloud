@@ -6,6 +6,11 @@ spring:
     name: api-gateway
 
   cloud:
+    # 增加 nacos 配置
+    nacos:
+      discovery:
+        server-addr: 192.168.152.129:8848
+
     gateway:
       routes: # 数组形式
         - id: order-service # 路由唯一标识
@@ -18,4 +23,4 @@ spring:
 
 #访问路径 http://localhost:8888/order-server/api/v1/video_order/list
 #转发路径 http://localhost:8000/order-server/api/v1/video_order/list
-#需要过滤器去掉前面第一层, 最后访问的是 ttp://localhost:8000/api/v1/video_order/list
+#需要过滤器去掉前面第一层, 最后访问的是 http://localhost:8000/api/v1/video_order/list
